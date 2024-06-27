@@ -3,16 +3,22 @@
         <div class="row text-center align-items-center flex-row-reverse">
             <div class="col-lg-auto ms-lg-auto">
                 <ul class="list-inline list-inline-dots mb-0">
-                    <li class="list-inline-item"><a href="https://tabler.io/docs" target="_blank" class="link-secondary" rel="noopener">Documentation</a></li>
+                    <li class="list-inline-item"><a href="https://tabler.io/docs" target="_blank" class="link-secondary"
+                            rel="noopener">Documentation</a></li>
                     <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a>
                     </li>
-                    <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
+                    <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank"
+                            class="link-secondary" rel="noopener">Source code</a></li>
                     <li class="list-inline-item">
-                        <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
+                        <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary"
+                            rel="noopener">
                             <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                <path
+                                    d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
                             </svg>
                             Sponsor
                         </a>
@@ -135,7 +141,9 @@
                 </a>
                 <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M12 5l0 14" />
                         <path d="M5 12l14 0" />
@@ -151,9 +159,81 @@
 <script src="<?= base_url('assets/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487') ?>" defer></script>
 <script src="<?= base_url('assets/libs/jsvectormap/dist/maps/world.js?1692870487') ?>" defer></script>
 <script src="<?= base_url('assets/libs/jsvectormap/dist/maps/world-merc.js?1692870487') ?>" defer></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <!-- Tabler Core -->
 <script src="<?= base_url('assets/js/tabler.min.js?1692870487') ?>" defer></script>
 <script src="<?= base_url('assets/js/demo.min.js?1692870487') ?>" defer></script>
+<!-- sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- sweet alert validasi -->
+<?php if (isset($_SESSION['validasi'])) : ?>
+
+<script>
+const Toast = Swal.mixin({
+    toast: true,
+    position: "bottom-start",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+Toast.fire({
+    icon: "error",
+    title: "<?= $_SESSION['validasi'] ?>"
+});
+</script>
+<?php unset($_SESSION['validasi']) ?>
+<?php endif; ?>
+
+<!-- sweet alert berhasil validasi -->
+<?php if (isset($_SESSION['berhasil'])) : ?>
+
+<script>
+const Berhasil = Swal.mixin({
+    toast: true,
+    position: "bottom-start",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+Berhasil.fire({
+    icon: "success",
+    title: "<?= $_SESSION['berhasil'] ?>"
+});
+</script>
+<?php unset($_SESSION['berhasil']) ?>
+<?php endif; ?>
+
+
+<!-- sweet alert konfirmasi hapus -->
+<script>
+$('.tombol-hapus').on('click', function() {
+    var getLink = $(this).attr('href');
+    Swal.fire({
+        title: "Yakin Hapus?",
+        text: "Data yang sudah dihapus tidak bisa dikembalikan",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, Hapus"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = getLink
+        }
+    });
+    return false;
+});
+</script>
 
 
 </body>
