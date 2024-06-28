@@ -25,35 +25,35 @@ if (isset($_POST['update'])) {
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($nama_lokasi)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Nama lokasi wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Nama lokasi wajib diisi";
         }
         if (empty($alamat_lokasi)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Alamat lokasi wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Alamat lokasi wajib diisi";
         }
         if (empty($tipe_lokasi)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Tipe lokasi wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Tipe lokasi wajib diisi";
         }
         if (empty($latitude)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Latitude wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Latitude wajib diisi";
         }
         if (empty($longitude)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Longitude wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Longitude wajib diisi";
         }
         if (empty($radius)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Radius wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Radius wajib diisi";
         }
         if (empty($zona_waktu)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Zona waktu wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Zona waktu wajib diisi";
         }
         if (empty($jam_masuk)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Jam masuk wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Jam masuk wajib diisi";
         }
         if (empty($jam_pulang)) {
-            $pesan_kesalan[] = "<i class='fa-solid fa-check'></i> Jam pulang wajib diisi";
+            $pesan_kesalahan[] = "<i class='fa-solid fa-check'></i> Jam pulang wajib diisi";
         }
 
         if (!empty($pesan_kesalahan)) {
-            $_SESSION['validasi'] = implode("<br>", $pesan_kesalan);
+            $_SESSION['validasi'] = implode("<br>", $pesan_kesalahan);
         } else {
             $result = mysqli_query($connection, "UPDATE lokasi_presensi SET 
                 nama_lokasi='$nama_lokasi', 
@@ -68,7 +68,7 @@ if (isset($_POST['update'])) {
             WHERE id=$id");
             $_SESSION['berhasil'] = "Data berhasil diupdate";
             header("Location: lokasi_presensi.php");
-            exit;
+            exit();
         }
     }
 }
